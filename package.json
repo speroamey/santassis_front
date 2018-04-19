@@ -1,5 +1,5 @@
 {
-  "name": "website",
+  "name": "carmes-web",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -30,7 +30,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.4",
+    "@angular/cli": "^1.7.4",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/jasmine": "~2.5.53",
@@ -49,5 +49,21 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmagroupsa/carmes-web.git"
+  },
+  "keywords": [
+    "carmes",
+    "web",
+    "plateform"
+  ],
+  "author": "speroamey@asmagroupsa",
+  "bugs": {
+    "url": "https://github.com/asmagroupsa/carmes-web/issues"
+  },
+  "homepage": "https://github.com/asmagroupsa/carmes-web#readme"
 }
