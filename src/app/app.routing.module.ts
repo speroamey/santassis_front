@@ -8,6 +8,10 @@ const routes: Routes = [
         loadChildren: 'app/layout/layout.module#LayoutModule',
     },
     {
+        path: 'admin',
+        loadChildren: 'app/admin/admin.module#AdminModule',
+    },
+    {
         path: '',
         redirectTo: 'layout',
         pathMatch: 'full'
