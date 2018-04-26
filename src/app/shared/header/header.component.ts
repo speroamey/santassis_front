@@ -36,9 +36,12 @@ export class HeaderComponent implements OnInit {
             else if (resp.message.indexOf('Votre solde') == 0) {
                 this.error = '';
                 this.principal.logged = true;
+                this.principal.encodeToken(this.model.cpteCarmes, this.model.pin);
+                this.principal.asObservable.next(true);
                 this.principal.cpteCarmes = this.model.cpteCarmes;
                 this.principal.pin = this.model.pin;
                 this.principal.soldeCarmes = resp.message;
+                this.model.pin = '';
                 this.closeModal();
             }
             this.isSaving = false;
@@ -60,7 +63,12 @@ export class HeaderComponent implements OnInit {
                 } else {
                     this.error = '';
                     this.principal.logged = true;
+                    this.principal.encodeToken(tabResp[0], tabResp[1]);
+                    this.principal.asObservable.next(true);
                     this.closeModal();
+                    this.model.name = '';
+                    this.model.phone = '';
+                    this.model.numCNI = '';
                 }
 
             } else {
