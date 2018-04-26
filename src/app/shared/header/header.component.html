@@ -23,9 +23,12 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                 </li>
+                <li class="nav-item" *ngIf="principal.logged">
+                    <a class="nav-link">Votre cpte Carmes <br> {{principal.cpteCarmes}}</a>
+                </li>
             </ul>
-            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#connexion">Se connecter</button>
-            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#creation">Ouvrir un compte</button>
+            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#connexion" *ngIf="!principal.logged">Se connecter</button>
+            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#creation" *ngIf="!principal.logged">Ouvrir un compte</button>
         </div>
     </div>
 </nav>
@@ -35,21 +38,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <p class="text-center">
+                    <em style="color:red">{{error}}</em>
+                </p>
+                <form name="editForm" role="form" novalidate (ngSubmit)="login()" #editForm="ngForm">
                     <div class="form-group">
                         <label for="carmes">Compte CARMES :</label>
-                        <input type="text" class="form-control" id="carmes">
+                        <input type="text" class="form-control" id="carmes" name="cpteCarmes" [(ngModel)]="model.cpteCarmes" required>
                     </div>
                     <div class="form-group">
                         <label for="code_pin">Code PIN:</label>
-                        <input type="password" class="form-control" id="code_pin">
+                        <input type="password" class="form-control" id="code_pin" name="pin" [(ngModel)]="model.pin" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="float: right">Connecter</button>
+                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}} Connecter</button>
                 </form>
             </div>
         </div>
@@ -61,25 +67,28 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Ouverture d'un Compte</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/action_page.php">
+                <p class="text-center">
+                    <em style="color:red">{{errorSignUp}}</em>
+                </p>
+                <form name="signUpForm" role="form" novalidate (ngSubmit)="signUp()" #signUpForm="ngForm">
                     <div class="form-group">
-                        <label for="name">Nom et Prenom :</label>
-                        <input type="text" class="form-control" id="name">
+                        <label for="nom">Nom et Prenom :</label>
+                        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="model.name" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">N° Portable:</label>
-                        <input type="text" class="form-control" id="phone">
+                        <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="model.phone" required>
                     </div>
                     <div class="form-group">
                         <label for="cin">N° CIN</label>
-                        <input type="text" class="form-control" id="cin">
+                        <input type="text" class="form-control" id="cin" name="numCNI" [(ngModel)]="model.numCNI" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="float: right">Valider</button>
+                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="signUpForm.form.invalid || isSaving">{{isSaving?'....':''}} Valider</button>
                 </form>
             </div>
         </div>
