@@ -1,0 +1,146 @@
+<!-- Header -->
+
+<div class="container">
+    <div class="main">
+        <span *ngIf="loading" class="row align-items-center">
+            <div class="col">
+                <!-- Chargement en cours... -->
+                <div class="progress-circular progress-circular-primary">
+                    <div class="progress-circular-wrapper">
+                        <div class="progress-circular-inner">
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                            <div class="progress-circular-gap"></div>
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+
+        <div class="row float-right">
+            <button data-toggle="modal" data-target="#addPrestation" class="btn btn-float btn my-1 float-right" type="button"><i
+                    class="fa fa-plus"></i>
+            </button>
+        </div>
+        <div *ngIf="prestations.length > 0">
+            <div class="row">
+
+                <div class="card-deck col-md-3" *ngFor="let item of prestations | paginate: { itemsPerPage: pager_infos.per_page, currentPage: pager_infos.current_page, totalItems: pager_infos.total }">
+
+                    <div class="card">
+                        <img class="card-img-top" [src]="item.image_url" width="230" height="220" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.name}}</h5>
+                            <p class="card-text"> {{item.description}} </p>
+                            <p class="card-text">
+                                <!-- <small class="text-muted"> {{item.price}} fcfa </small> -->
+                                <span class="badge badge-dark"> {{item.price}} fcfa</span>
+                                <span class="badge badge-danger">Commander</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br><br>
+            <pagination-controls (pageChange)="pageChanged($event)" directionLinks="true" autoHide="true" responsive="true"
+                previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page" screenReaderCurrentLabel="Page Actuelle">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+<!-- <button href="#" class="btn btn-sm btn-outline-info float-right">Acheter</button>
+<button href="#" class="btn btn-sm btn-outline-dark float-right"  style="margin-right:15px">Voir</button> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addPrestation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajoutez un Produit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <p class="text-center">
+                        <em style="color:red">{{errorSignUp}}</em>
+                    </p> -->
+
+                <form name="addForm" role="form" (ngSubmit)="f.form.valid && addPrestation()" #f="ngForm" novalidate>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                        <label for="name">Nom du produit </label>
+                        <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
+                        <label for="description">Description du Produit</label>
+                        <input type="text" class="form-control" name="description" [(ngModel)]="model.description"
+                            #description="ngModel" required />
+                        <div *ngIf="f.submitted && !description.valid" class="help-block">Description is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
+                        <label for="price">Prix du produit</label>
+                        <input type="number" class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !price.valid" class="help-block">price is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
+                        <label for="quantity">Quantité du produit</label>
+                        <input type="number" class="form-control" name="quantity" [(ngModel)]="model.quantity"
+                            #quantity="ngModel" required />
+                        <div *ngIf="f.submitted && !quantity.valid" class="help-block">quantity is required</div>
+                    </div>
+
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" name="image" (change)="fileUpload($event)" accept=".jpg,.png"
+                            required />
+                        <!-- <div *ngIf="f.submitted " class="help-block">Image is required</div> -->
+                    </div>
+
+                    <div class="form-group">
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
+                            Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

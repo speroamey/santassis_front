@@ -1,0 +1,68 @@
+<!-- Header -->
+
+<div class="container">
+
+    <div class="main">
+        <span *ngIf="loading" class="row align-items-center">
+            <div class="col">
+                <!-- Chargement en cours... -->
+                <div class="progress-circular progress-circular-primary">
+                    <div class="progress-circular-wrapper">
+                        <div class="progress-circular-inner">
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                            <div class="progress-circular-gap"></div>
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+        <div class="row float-right" [routerLink]="['/layout/user-home/news/add']">
+                <button class="btn btn-float btn my-1 float-right" type="button"><i
+                    class="fa fa-plus"></i>
+                </button>
+        </div>
+
+<div  *ngIf="news.length > 0">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Resumé</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of news; let i=index">
+                  <th scope="row">{{i+1}} </th>
+                  <td>{{item.title}}</td>
+                  <td>{{item.title}} </td>
+                  <td>
+                    <!-- <button type="button"  class="btn btn-default btn-circle" > -->
+                        <span class="chip" [routerLink]="['/layout/user-home/news',item.id]"> 
+                            <i class="fa fa-eye "></i>
+                        </span>
+                       
+                    <!-- </button> -->
+                    <!-- <button type="button"  class="btn btn-default btn-circle"> -->
+                        <span class="chip">
+                            <i class="fa fa-pencil " ></i>
+                        </span>
+                       
+                    <!-- </button> -->
+                  </td>
+                </tr>
+              </tbody>
+        </table>
+      </div>
+</div>
+    </div>
+</div>
+
+

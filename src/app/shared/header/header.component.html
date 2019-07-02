@@ -1,37 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">CARMES</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav text-uppercase ml-auto">
+<div class="header  navbar-fixed-top">
 
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <!--  <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#team">Team</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-                <li class="nav-item" *ngIf="principal.logged">
-                    <a class="nav-link">Votre cpte Carmes <br> {{principal.cpteCarmes}}</a>
-                </li>
-            </ul>
-            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#connexion" *ngIf="!principal.logged">Se connecter</button>
-            <button type="button" class="btn btn-light nav-item btn-item active" data-toggle="modal" data-target="#creation" *ngIf="!principal.logged">Ouvrir un compte</button>
+
+<nav class="navbar bg-inverse navbar-toggleable-md header " id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger logo" href="#page-top">Santassis</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Menu -->
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav  ml-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li> -->
+                    <!-- {{principal.isLoggedIn}} -->
+                    <li class="nav-item curseur" *ngIf="principal.isLoggedIn">
+                        <a class="nav-link">Votre cpte <br> {{principal.cpteCarmes}}</a>
+                    </li>
+
+                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/products']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger" >Produits</a>
+                    </li>
+
+                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/news']" [routerLinkActive]="['router-link-active']">
+                        <a class="nav-link js-scroll-trigger" >News</a>
+                    </li>
+
+                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/prestations']" [routerLinkActive]="['router-link-active']">
+                        <a class="nav-link js-scroll-trigger" >Prestations</a>
+                    </li>
+
+                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/testify']" [routerLinkActive]="['router-link-active']">
+                        <a class="nav-link js-scroll-trigger" >Temoignages</a>
+                    </li>
+                </ul>
+                <div class="float-right dropdown">
+                        <span class="chip chip-light dropdown-toggle"  data-toggle="dropdown" id="dropdownMenuButton2" aria-expanded="false" aria-haspopup="true">
+                            <i class="chip-icon-blue ">C</i>Mon Compte </span>
+                            <div aria-labelledby="dropdownMenuButton2" class="dropdown-menu dropdown-menu-sm">
+                                     <button class="btn  my-1"  data-toggle="modal" data-target="#connexion"
+                                     *ngIf="!isAuthenticated"type="button">Se Connecter</button>
+                                     <button class="btn  my-1" type="button" data-toggle="modal" data-target="#creation"
+                                     *ngIf="!isAuthenticated">S'enregistrer</button>
+                            </div>
+                </div>
+               
+              
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
+
+
+
+
+
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="connexion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -48,14 +81,17 @@
                 </p>
                 <form name="editForm" role="form" novalidate (ngSubmit)="login()" #editForm="ngForm">
                     <div class="form-group">
-                        <label for="carmes">Compte CARMES :</label>
-                        <input type="text" class="form-control" id="carmes" name="cpteCarmes" [(ngModel)]="model.cpteCarmes" required>
+                        <label for="username">Adresse Mail :</label>
+                        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="model.username"
+                            required>
                     </div>
                     <div class="form-group">
-                        <label for="code_pin">Code PIN:</label>
-                        <input type="password" class="form-control" id="code_pin" name="pin" [(ngModel)]="model.pin" required>
+                        <label for="Password">Mot de Passe:</label>
+                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="model.password"
+                            required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}} Connecter</button>
+                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                        Connecter</button>
                 </form>
             </div>
         </div>
@@ -66,7 +102,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ouverture d'un Compte</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Créer un Compte</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,20 +111,46 @@
                 <p class="text-center">
                     <em style="color:red">{{errorSignUp}}</em>
                 </p>
-                <form name="signUpForm" role="form" novalidate (ngSubmit)="signUp()" #signUpForm="ngForm">
-                    <div class="form-group">
-                        <label for="nom">Nom et Prenom :</label>
-                        <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="model.name" required>
+
+                <form name="signUpForm" role="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                        <label for="username">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" name="username" [(ngModel)]="model.name" #username="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
                     </div>
-                    <div class="form-group">
-                        <label for="phone">N° Portable:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="model.phone" required>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !mail.valid }">
+                        <label for="mail">Adresse Mail</label>
+                        <input type="email" class="form-control" name="mail" [(ngModel)]="model.email" #mail="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !mail.valid" class="help-block">email is required</div>
                     </div>
-                    <div class="form-group">
-                        <label for="cin">N° CIN</label>
-                        <input type="text" class="form-control" id="cin" name="numCNI" [(ngModel)]="model.numCNI" required>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phone.valid }">
+                        <label for="phone">Numéro Téléphone</label>
+                        <input type="phone" class="form-control" name="phone" [(ngModel)]="model.phone" #phone="ngModel"
+                            required />
+                        <div *ngIf="f.submitted && !phone.valid" class="help-block">phone is required</div>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="signUpForm.form.invalid || isSaving">{{isSaving?'....':''}} Valider</button>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" class="form-control" name="password" [(ngModel)]="model.password"
+                            #password="ngModel" required />
+                        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password_confirmation.valid }">
+                        <label for="password_confirmation">Confirmez Mot de passe</label>
+                        <input type="password" class="form-control" name="password_confirmation" [(ngModel)]="model.password_confirmation"
+                            #password_confirmation="ngModel" required />
+                        <div *ngIf="f.submitted && !password_confirmation.valid" class="help-block">Password is required</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
+                            Valider
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

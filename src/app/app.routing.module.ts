@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoggedInGuard } from './loggedIn.guard';
 
 
 const routes: Routes = [
@@ -15,8 +16,8 @@ const routes: Routes = [
         path: '',
         redirectTo: 'layout',
         pathMatch: 'full'
-    }
-    /* { path: '**', redirectTo: 'not-found' } */
+    },
+    { path: '**', redirectTo: 'not-found' } 
 ];
 
 @NgModule({

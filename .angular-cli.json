@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles/app.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -57,7 +57,7 @@
     "serve": {
       "port": 5000
     },
-    "styleExt": "css",
+    "styleExt":"css",
     "component": {}
   }
 }
