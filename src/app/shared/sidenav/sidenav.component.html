@@ -1,0 +1,68 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <div class="row">
+        <!--<div class="col-md-12">
+            <p style="text-align: center">
+                <img src="assets/avatar.png" alt="avatar-img" width="80px">
+            </p>
+        </div>
+        <div class="col-md-12" style="text-align: center">
+            <span style="color:olive; top:0;left:0;bottom: 0; right: 0; margin: auto;">
+                {{username.toUpperCase()}}
+            </span>
+        </div>-->
+    </div>
+
+
+    <ul class="list-group">
+        <a routerLink="/dashboard" class="chip list-group-item">
+            <i class=" chip-icon fa fa-fw fa-dashboard"></i>&nbsp;
+        </a>
+
+
+        <a routerLink="/layout/user-home/products" class="list-group-item">
+            <span class="chip">
+               <i class="fa fa-fw fa-calendar"></i>&nbsp;Produits
+            </span>
+        </a>
+
+        <a routerLink="/layout/user-home/commands" class="list-group-item"  *ngIf="role">
+            <span class="chip">
+               <i class="fa fa-fw fa-calendar"></i>&nbsp; Commandes
+            </span>
+        </a>
+
+        <a routerLink="/layout/user-home/prestations" class="list-group-item">
+            <span class="chip">
+                    <i class="fa fa-fw fa-info"></i>&nbsp;Prestations
+            </span>
+        </a>
+
+        <a routerLink="/layout/user-home/news" class="list-group-item">
+            <span class="chip">
+                    <i class="fa fa-fw fa-info"></i>&nbsp;News
+            </span>
+        </a>
+
+        <a routerLink="/layout/user-home/testify" class="list-group-item">
+            <span class="chip">
+                    <i class="fa fa-fw fa-info"></i>&nbsp;Témoignages
+            </span>
+        </a>
+
+        <a routerLink="/layout/user-home/users" class="list-group-item" *ngIf="role">
+            <span class="chip">
+                    <i class="fa fa-fw fa-info"></i>&nbsp;Utilisateurs
+            </span>
+        </a>
+
+
+
+
+
+
+
+
+
+
+    </ul>
+</nav>

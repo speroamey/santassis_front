@@ -37,4 +37,15 @@ export class UserPrestationsService {
       }));
   }
 
+  updatePrestation(data){
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type', 'application/json')
+    options.headers.append('Authorization','Bearer ' + localStorage.authenticationtoken );
+    
+    return this.http
+      .put(`${this.PrestationsUrl}/${data.id}`, data, options).pipe(map((res) => {
+        return res.json();
+      }));
+  }
+
 }

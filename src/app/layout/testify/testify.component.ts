@@ -11,14 +11,18 @@ export class TestifyComponent implements OnInit {
 
   loading: boolean=false;
   testifies: any;
-  constructor(private testifyService: TestifyService) { }
+  testify: {};
+  constructor(private testifyService: TestifyService) { 
+    this.testifies= [];
+    this.testify ={};
+  }
 
   ngOnInit() {
     SmoothScroll();
-    this.testifys();
+    this.loadTestifies();
   }
 
-  testifys() {
+  loadTestifies() {
     this.loading=true;
     this.testifyService.getTestifys()
       .subscribe(

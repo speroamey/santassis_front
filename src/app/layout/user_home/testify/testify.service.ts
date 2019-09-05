@@ -25,4 +25,28 @@ export class TestifyService {
     }));     
   }
 
+
+
+  addTestifies(data) {
+    const options: BaseRequestOptions = createRequestOption();
+    // options.headers.append('Content-Type','application/json')
+    return this.http
+      .post(this.TestifyUrl, data, options).pipe(map((res) => {
+        return res.json();
+      }));
+  }
+
+
+  updateTestifyAuthorization(data) {
+    console.log(data);
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type', 'application/json')
+    options.headers.append('Authorization','Bearer ' + localStorage.authenticationtoken );
+    
+    return this.http
+      .put(`${this.TestifyUrl}/${data.id}`, data, options).pipe(map((res) => {
+        return res.json();
+      }));
+  }
+
 }

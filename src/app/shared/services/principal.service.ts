@@ -3,20 +3,30 @@ import { Subject } from 'rxjs/Subject';
 import { Http, Response, URLSearchParams,BaseRequestOptions } from '@angular/http';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import {map} from 'rxjs/operators';
+import {map, catchError} from 'rxjs/operators';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+
+import { HOST, createRequestOption } from '../../request-util';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class PrincipalService {
 
   token: string = '';
-  _HOST: string = 'http://127.0.0.1:8000/api/';
 
-  loginUrl: string = 'http://127.0.0.1:8000/api/login';
-  registerUrl: string = 'http://127.0.0.1:8000/api/register';
- 
+  loginUrl: string = HOST + 'login';
+  registerUrl: string = HOST + 'register';
+  resetingPassTokenUrl: string = HOST + 'create-pass-token';
+  checkTokenUrl: string = HOST + 'find';
+  resetPasswordUrl: string = HOST + 'reset';
+  disconnectUrl: string = HOST + 'logout';
+  userUrl: string = HOST + 'user';
+
   userIdentity: any;
   isLoggedIn: boolean;
-
+  req:any={};
+  
   constructor(private router: Router,private http: Http) {
     // this.carmesUrl = this.loginUrl + '/carte_puce/appCarte.php';
     this.isLoggedIn=false;
@@ -39,17 +49,82 @@ export class PrincipalService {
   }
 
   register(data) {
-    console.log(data);
+    // console.log(data);
     
     const options: BaseRequestOptions = new BaseRequestOptions();
     options.headers.append('Content-Type','application/json')
 
     return this.http
-    .post(this.registerUrl, data, options).pipe(map((res)=>{
+    .post(this.registerUrl, data, options)
+      .pipe(map((res)=>{
+        return res.json();
+      })
+      )
+      // .catch(this.handleError);    
+  }
+  
+  handleError(error: HttpErrorResponse){
+    // console.error(error);
+    // console.log('inHandleErrors',error.toString());
+    return error
+  }
+
+  resetingPasswordToken(data) {
+    console.log(data);
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type','application/json')
+
+    return this.http
+    .post(this.resetingPassTokenUrl, data, options).pipe(map((res)=>{
       return res.json();
     }));     
   }
-  
+
+  checkToken(id) {
+    console.log(id);
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type','application/json')
+
+    return this.http
+    .get( `${this.checkTokenUrl}/${id}`, options).pipe(map((res)=>{
+      return res.json();
+    }));     
+  }
+
+  resetPassword(data) {
+    console.log(data);
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type','application/json')
+
+    return this.http
+    .post(this.resetPasswordUrl, data, options).pipe(map((res)=>{
+      return res.json();
+    }));     
+  }
+
+
+  getDisconnect() {
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type', 'application/json');    
+    options.headers.append('Authorization','Bearer ' + localStorage.authenticationtoken );
+    
+    return this.http
+      .get(this.disconnectUrl, options).pipe(map((res)=>{
+        return res.json();
+    }));     
+  }
+
+
+  connectedUser(){
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type', 'application/json');    
+    options.headers.append('Authorization','Bearer ' + localStorage.authenticationtoken );
+    
+    return this.http
+      .get(this.userUrl, options).pipe(map((res)=>{
+        return res.json();
+    }));   
+  }
 
 
 

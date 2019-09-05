@@ -33,7 +33,7 @@ export class ViewNewsComponent implements OnInit {
     data: any;
 
     
-  constructor(private newsService: NewsService, private route : ActivatedRoute,private _sanitizer: DomSanitizer) {
+  constructor(private newsService: NewsService, private route : ActivatedRoute, private _sanitizer: DomSanitizer) {
     // this.Editor = ClassicEditor;
     this.news = [];
     this.data = {}

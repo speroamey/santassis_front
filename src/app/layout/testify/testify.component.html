@@ -1,39 +1,47 @@
+<div class=" container-fluid ">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="main">
+                <span *ngIf="loading" class="row align-items-center">
+                            <div class="col">
+                                <!-- Chargement en cours... -->
+                                <div class="progress-circular progress-circular-primary">
+                                    <div class="progress-circular-wrapper">
+                                        <div class="progress-circular-inner">
+                                            <div class="progress-circular-center">
+                                                <div class="progress-circular-spinner"></div>
+                                            </div>
+                                            <div class="progress-circular-gap"></div>
+                                            <div class="progress-circular-center">
+                                                <div class="progress-circular-spinner"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
 
-<!-- Header -->
 
-<div class="container">
-    <div class="main">
-      <div *ngIf="loading">
-          Chargement en cours...
-      </div>
-       
-      <div *ngIf="products.length > 0">
-          <div *ngFor="let item of products">
-              <!-- <div>{{item}}</div> -->
-          </div>
+                <div *ngIf="testifies.length > 0">
+                    <div class="table-responsive">
+                        <table class="table">
 
-          <div class="card w-75" *ngFor="let item of products">
-              <div class="card-body">
-                <h5 class="card-title text-dark">{{item.name}}</h5>
-                <div class="row card-text">
-                    <div class="col-md-3">
-                      image
-                      <img src="src/assets/img/portfolio/O2-thumbnail.jpg" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        With supporting text below as a natural lead-in to additional content.
-                    </div>
-                    <div class="col-md-3 ">
-                      <div class="float-right text-primary">
-                          {{item.price}} fcfa
-                      </div>
+                            <div class="card" *ngFor="let item of testifies">
+                                <div class="card-header text-black font-weight-bold text-capitalize">
+                                    Par : {{item.user.name}}
+                                </div>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                        <h6 class="text-black ">{{item.description}}</h6>
+                                        <footer class="blockquote-footer">{{item.user.firstname}} {{item.user.lastname}}
+                                            <small title="Source Title">{{item.created_at | date}}</small>
+                                        </footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </table>
                     </div>
                 </div>
-                <button href="#" class="btn btn-sm btn-outline-info float-right">Acheter</button>
-                <button href="#" class="btn btn-sm btn-outline-dark float-right"  style="margin-right:15px">Voir</button>
-              </div>
-          </div>
-      </div> 
+            </div>
+        </div>
     </div>
-</div>
-

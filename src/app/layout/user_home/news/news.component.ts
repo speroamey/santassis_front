@@ -7,18 +7,18 @@ import {ChangeEvent} from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { NewsService } from './news.service'
 declare let jQuery: any;
 declare let SmoothScroll: any;
+
 @Component({
-  selector: 'app-home',
+  selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-
   loading: boolean = false;
   public Editor = ClassicEditor;
   public model = {
-    content: '<p>Hello, world!</p>',
-    title:'le titre'
+    content: '',
+    title:''
   };
   
   public config = {ckfinder: {

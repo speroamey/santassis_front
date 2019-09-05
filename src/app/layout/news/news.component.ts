@@ -10,16 +10,19 @@ declare let SmoothScroll: any;
 export class NewsComponent implements OnInit {
 
   loading: boolean=false;
-  constructor(private productService: NewsService) { }
+  news: any;
+  constructor(private newService: NewsService) { 
+    this.news =[];
+  }
 
   ngOnInit() {
     SmoothScroll();
-    this.news();
+    this.loadNews();
   }
 
-  news() {
+  loadNews() {
     this.loading=true;
-    this.productService.getNews()
+    this.newService.getNews()
       .subscribe(
         (resp) => {
           console.log(resp);

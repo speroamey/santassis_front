@@ -1,0 +1,183 @@
+<!-- Header -->
+
+<div class="offset-md-2">
+    <div class="main row col-md-12">
+        <div class="col-sm-12 col-xs-12 col-md-3 col-lg-3">
+            <div class="card hovercard">
+                <div class="cardheader">
+
+                </div>
+                <div class="avatar" data-toggle="modal" data-target="#changeAvatar">
+                    <img alt="" [src]="model.avatar_url || tmp_image" />
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="https://scripteden.com/">{{model.name}}</a>
+                    </div>
+                    <div class="desc">{{model.profession}}</div>
+                    <div class="desc"> {{model.email}}</div>
+                    <div class="desc">{{model.phone}}</div>
+                </div>
+                <div class="bottom">
+                    <a class=" btn-primary  btn-sm" href="https://twitter.com/webmaniac" data-toggle="modal" data-target="#changePassword">
+                        <i class="fa fa-key"></i> Mot de Passe
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8">
+            <form name="addForm" role="form" #addForm="ngForm" novalidate>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !name.valid }">
+                    <label for="name" class="text-black">Nom d'utilisateur </label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="model.name" (keyup)="changeValue('name', $event)" (blur)="updateList('name', $event)" #name="ngModel" required />
+                    <div *ngIf="name.invalid  " class="help-block" style="color:red">Ce champ est requis</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !lastname.valid }">
+                    <label for="lastname" class="text-black">Nom  </label>
+                    <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" (keyup)="changeValue('lastname', $event)" (blur)="updateList('lastname', $event)" required />
+                    <div *ngIf="lastname.invalid" class="help-block" style="color:red">Veuillez renseigner ce champ</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !firstname.valid }">
+                    <label for="firstname" class="text-black">Prénoms</label>
+                    <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" (keyup)="changeValue('firstname', $event)" (blur)="updateList('firstname', $event)" #firstname="ngModel" required />
+                    <div *ngIf="firstname.invalid" class="help-block" style="color:red">Prénom est requis</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !profession.valid }">
+                    <label for="profession" class="text-black">Profession</label>
+                    <input type="text" class="form-control" name="profession" [(ngModel)]="model.profession" (keyup)="changeValue('profession', $event)" (blur)="updateList('profession', $event)" #profession="ngModel" required />
+                    <div *ngIf="profession.invalid" class="help-block" style="color:red">Profession est requis</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !phone.valid }">
+                    <label for="phone" class="text-black">Téléphone</label>
+                    <input type="text" class="form-control" name="phone" [(ngModel)]="model.phone" (keyup)="changeValue('phone', $event)" (blur)="updateList('phone', $event)" #phone="ngModel" required />
+                    <div *ngIf="phone.invalid" class="help-block" style="color:red">phone est requis</div>
+                </div>
+
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !email.valid }">
+                    <label for="email" class="text-black">Adresse mail</label>
+                    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" (keyup)="changeValue('email', $event)" (blur)="updateList('email', $event)" #email="ngModel" required />
+                    <div *ngIf="email.invalid" class="help-block" style="color:red">email est requis</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !birthdate.valid }">
+                    <label for="birthdate" class="text-black">Date de Naissance</label>
+                    <input type="date" class="form-control" name="birthdate" [ngModel]="model.birthdate" (keyup)="changeValue('birthdate', $event)" (blur)="updateList('birthdate', $event)" #birthdate="ngModel" required />
+                    <div *ngIf="birthdate.invalid" class="help-block" style="color:red">date requis</div>
+                </div>
+
+                <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !type.valid }">
+                    <label for="sexe" class="text-black">Sexe</label>
+                    <select class="browser-default custom-select" name="sexe" [(ngModel)]="model.sexe" (change)="updateList('sexe', $event)" #sexe="ngModel" required>
+                            <option *ngFor="let sexe of sexes" [ngValue]="sexe">{{sexe}}</option>
+                        </select>
+                    <div *ngIf="sexe.invalid" class="help-block">sexe requis</div>
+                </div>
+                <br><br><br>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <em style="color:red">{{error}}</em>
+                </p>
+                <form name="editForm" role="form" novalidate (ngSubmit)="changePassword()" #editForm="ngForm">
+                    <div class="form-group">
+                        <label for="oldPassword">Ancien Mot de Passe:</label>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" [(ngModel)]="model.oldPassword" #oldPassword="ngModel" required>
+                        <small style="color:red" [hidden]="oldPassword.valid || (oldPassword.pristine && !editForm.submitted)">
+                            Mot de passe requis
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Mot de Passe:</label>
+                        <input type="password" minlength="6" class="form-control" id="newPassword" validateEqual="confirmPassword" reverse="true" name="newPassword" [(ngModel)]="model.newPassword" #newPassword="ngModel" required>
+                        <small style="color:red" [hidden]="newPassword.valid || (newPassword.pristine && !editForm.submitted)">
+                            Mot de passe requis (minimum 6 characters).
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">Mot de Passe:</label>
+                        <input type="password" minlength="6" class="form-control" id="confirmPassword" name="confirmPassword" [(ngModel)]="model.confirmPassword" #confirmPassword="ngModel" validateEqual="newPassword" required>
+                        <small style="color:red" [hidden]="confirmPassword.valid || (confirmPassword.pristine && !editForm.submitted)">
+                            les mots de passe de correspondent pas
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                        Valider
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <button href="#" class="btn btn-sm btn-outline-info float-right">Acheter</button>
+<button href="#" class="btn btn-sm btn-outline-dark float-right"  style="margin-right:15px">Voir</button> -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image de Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <em style="color:red">{{error}}</em>
+                </p>
+                <form name="imgForm" role="form" novalidate (ngSubmit)="sendAvatar()" #imgForm="ngForm">
+                    <div class="form-group">
+                        <input type="file" (change)="fileChangeEvent($event)" required/>
+                    </div>
+
+                    <div>
+                        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [roundCropper]="true" [aspectRatio]="1 / 1" [resizeToWidth]="46" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                            (loadImageFailed)="loadImageFailed()">
+                        </image-cropper>
+
+                        <img [src]="croppedImage" />
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="imgForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                        Valider
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

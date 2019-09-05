@@ -1,0 +1,129 @@
+<!-- Header -->
+
+<div class="offset-md-2">
+    <div class="main">
+        <span *ngIf="loading" class="row align-items-center">
+            <div class="col">
+                <!-- Chargement en cours... -->
+                <div class="progress-circular progress-circular-primary">
+                    <div class="progress-circular-wrapper">
+                        <div class="progress-circular-inner">
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                            <div class="progress-circular-gap"></div>
+                            <div class="progress-circular-center">
+                                <div class="progress-circular-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+
+        <div class="row float-right">
+            <button data-toggle="modal" data-target="#addProduct" class="btn btn-float btn my-1 float-right" type="button"><i
+                    class="fa fa-plus"></i>
+            </button>
+            <!-- <button data-toggle="modal" data-target="#bascketDetails" class="btn btn-float btn-warning text-white my-1 float-right" type="button">
+                <i class="fa fa-cart-plus">
+                    {{shoppingBasket.length}}
+                </i>
+
+            </button>-->
+        </div>
+        <div *ngIf="users.length > 0">
+            <div class="row">
+
+                <div class="card-deck table-responsive">
+
+                    <!--<div class="card" *ngIf="!user?.show" style="cursor:pointer" data-toggle="modal" data-target="#detailsProduct" (click)="getProduct(user)">
+                        <img class="card-img-top" [src]="user.image_url" style="width:100%;height:60%" alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class=" font-weight-bold text-capitalize">{{user.name}}</h6>
+                            <h6 class="card-text row-1 text-truncate font-weight-normal"> {{user.description}} </h6>
+
+                            <div class="card-text">
+                                <span class="badge badge-light font-italic font-weight-bold typography-headline" style="color: rgba(0,0,0,.87) !important;"> {{user.price}} fcfa</span>
+                                <span class="badge badge-warning text-black-secondary">Commander!</span>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-black ">#</th>
+                                <th scope="col" class="text-black font-weight-bold">Nom d'utilisateur</th>
+                                <th scope="col" class="text-black font-weight-bold">Nom</th>
+                                <th scope="col" class="text-black font-weight-bold">Prénoms</th>
+                                <th scope="col" class="text-black font-weight-bold">Num. Télephone</th>
+                                <th scope="col" class="text-black font-weight-bold">Profession</th>
+                                <th scope="col" class="text-black font-weight-bold"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users | paginate: { itemsPerPage: pager_infos?.per_page, currentPage: pager_infos?.current_page, totalItems: pager_infos?.total }">
+                                <th scope="row">{{user.id}}</th>
+                                <td>{{user.name}}</td>
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.profession}}</td>
+                                <td>{{user.phone}} Fcfa</td>
+                                <td>
+                                    <span class="cursor-pointer  bg-success shadow-sm " *ngIf="user.active == 1" (click)="activeUser(0,user)"> 
+                                        <i class="fa fa-key"> Activé</i>
+                                    </span>
+                                    <span class="cursor-pointer bg-danger" *ngIf="user.active == 0" (click)="activeUser(1,user)"> 
+                                            <i class="fa fa-key"></i> Désactivé
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <br><br>
+            <pagination-controls (pageChange)="pageChanged($event)" directionLinks="true" autoHide="true" responsive="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="Page Actuelle">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+<!-- <button href="#" class="btn btn-sm btn-outline-info float-right">Acheter</button>
+<button href="#" class="btn btn-sm btn-outline-dark float-right"  style="margin-right:15px">Voir</button> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade bd-example-modal-lg" id="removeProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Suppression</h6>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span class="text-black"> Voulez vous vraiment supprimer ce produit ?</span>
+                <br><br>
+                <div class="form-group">
+                    <button type="submit" class="ml-2 btn btn-danger text-white" style="float: right" (click)="remove()">
+                           Confirmez
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

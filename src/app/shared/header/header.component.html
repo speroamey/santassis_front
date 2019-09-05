@@ -1,58 +1,80 @@
 <div class="header  navbar-fixed-top">
-
-
-<nav class="navbar bg-inverse navbar-toggleable-md header " id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger logo" href="#page-top">Santassis</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar bg-inverse navbar-toggleable-md header " id="mainNav">
+        <div class="container-fluid">
+            <div col-md-1>
+            </div>
+            <!--<a class="navbar-brand js-scroll-trigger logo" href="#page-top">
+                Santassis
+            </a>-->
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <!-- Menu -->
                 <i class="fa fa-bars"></i>
             </button>
+
+            <!--<button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#adminNavbarResponsive" aria-controls="adminNavbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>-->
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav  ml-auto">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">A propos</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                    </li> -->
-                    <!-- {{principal.isLoggedIn}} -->
-                    <li class="nav-item curseur" *ngIf="principal.isLoggedIn">
-                        <a class="nav-link">Votre cpte <br> {{principal.cpteCarmes}}</a>
-                    </li>
+                <div class="offset-md-1">
 
-                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/products']" [routerLinkActive]="['router-link-active']">
-                            <a class="nav-link js-scroll-trigger" >Produits</a>
-                    </li>
-
-                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/news']" [routerLinkActive]="['router-link-active']">
-                        <a class="nav-link js-scroll-trigger" >News</a>
-                    </li>
-
-                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/prestations']" [routerLinkActive]="['router-link-active']">
-                        <a class="nav-link js-scroll-trigger" >Prestations</a>
-                    </li>
-
-                    <li class="nav-item curseur" [routerLink]="['/layout/user-home/testify']" [routerLinkActive]="['router-link-active']">
-                        <a class="nav-link js-scroll-trigger" >Temoignages</a>
-                    </li>
-                </ul>
-                <div class="float-right dropdown">
-                        <span class="chip chip-light dropdown-toggle"  data-toggle="dropdown" id="dropdownMenuButton2" aria-expanded="false" aria-haspopup="true">
-                            <i class="chip-icon-blue ">C</i>Mon Compte </span>
-                            <div aria-labelledby="dropdownMenuButton2" class="dropdown-menu dropdown-menu-sm">
-                                     <button class="btn  my-1"  data-toggle="modal" data-target="#connexion"
-                                     *ngIf="!isAuthenticated"type="button">Se Connecter</button>
-                                     <button class="btn  my-1" type="button" data-toggle="modal" data-target="#creation"
-                                     *ngIf="!isAuthenticated">S'enregistrer</button>
-                            </div>
                 </div>
-               
-              
+                <div class="col-md-2 curseur navbar-brand">
+                    <a [routerLink]="['/layout/home']" [routerLinkActive]="['router-link-active']" > 
+                        <img  src="/assets/img/logo.png" alt="logo">
+                    </a>
+                </div>
+                <!--<div class="offset-md-1">
+
+                </div>-->
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <ul class="navbar-nav  ml-auto text-black font-weight-bold">
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/home']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger ">Accueil</a>
+                        </li>
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/products']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger ">Produits</a>
+                        </li>
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/news']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger">News</a>
+                        </li>
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/prestations']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger">Prestations</a>
+                        </li>
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/testify']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger">Temoignages</a>
+                        </li>
+
+                        <li class="nav-item curseur" [routerLink]="['/layout/about_us']" [routerLinkActive]="['router-link-active']">
+                            <a class="nav-link js-scroll-trigger">Qui Sommes Nous?</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="float-right dropdown">
+                        <span class="chip chip-light dropdown-toggle" data-toggle="dropdown" style="cursor: pointer" id="dropdownMenuButton2" aria-expanded="false" aria-haspopup="true">
+                                        <i class="chip-icon-blue ">C</i>Mon Compte </span>
+                        <div aria-labelledby="dropdownMenuButton2" class="dropdown-menu dropdown-menu-sm text-center font-weight-bold">
+                            <label class="  my-1 text-black  font-weight-bold" *ngIf="isLogin" [routerLink]="[ '/layout/user-home/products'] " style="cursor: pointer; line-height:30px">Mon Espace Pro! </label>
+
+                            <label class="  my-1 text-black  font-weight-bold" data-toggle="modal" *ngIf="!isLogin" data-target="#connexion" style="cursor: pointer; line-height:30px">Se Connecter
+                                        
+                                    </label>
+                            <div></div>
+                            <label class="  my-1  text-black font-weight-bold" data-toggle="modal" data-target="#creation" *ngIf="!isLogin" style="cursor: pointer; line-height:30px">S'enregistrer <br></label>
+
+                            <label class="  my-1  text-black font-weight-bold" (click)="disconnect()" *ngIf="isLogin" style="cursor: pointer;line-height:30px ">Déconnexion</label>
+                            <div></div>
+                            <label class=" my-1 text-black font-weight-bold" *ngIf="isLogin" [routerLink]="[ '/layout/user-home/profile'] " style="cursor: pointer; line-height:30px">Mon Profile</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -65,7 +87,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal connexion-->
 <div class="modal fade" id="connexion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -81,23 +103,105 @@
                 </p>
                 <form name="editForm" role="form" novalidate (ngSubmit)="login()" #editForm="ngForm">
                     <div class="form-group">
-                        <label for="username">Adresse Mail :</label>
-                        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="model.username"
-                            required>
+                        <label for="username">Adresse Mail:</label>
+                        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="model.username" #username="ngModel" required>
+                        <small *ngIf="username.touched && username.invalid" class="help-block text-danger">Nom d'utilisateur required</small>
                     </div>
                     <div class="form-group">
-                        <label for="Password">Mot de Passe:</label>
-                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="model.password"
-                            required>
+                        <label for="Password" class="">Mot de Passe:</label>
+                        <input type="password" minlength="6" class="form-control" id="password" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+                        <small *ngIf="password.touched && password.invalid" class="help-block text-danger">Mot de passe requis (minimum 6 caractères)</small>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}}
-                        Connecter</button>
+                    <div class="form-group">
+                        <i *ngIf="isSaving" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        <button type="submit" class="btn btn-primary snackbar-toggler" style="float: right" [disabled]="editForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                            Connecter
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="forgotPassword" class="text-black font-weight-bold" style="cursor:pointer" (click)="openResetModal()" >Mot de Passe Oublié?</label>
+                    </div>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal -->
+
+<!-- Modal reset password-->
+<div class="modal fade" id="resetingPasswordToken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mot de Passe Oublié</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <em style="color:red">{{error}}</em>
+                </p>
+                <form name="resetForm" role="form" novalidate (ngSubmit)="resetingPasswordToken()" #resetForm="ngForm">
+                    <div class="form-group">
+                        <label for="username">Adresse Mail:</label>
+                        <input type="email" class="form-control" id="email" name="username" [(ngModel)]="reset.email" #username="ngModel" required>
+                        <small *ngIf="username.touched && username.invalid" class="help-block text-danger">Email requis</small>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="Password" class="">Mot de Passe:</label>
+                        <input type="password" minlength="6" class="form-control" id="password" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+                        <small *ngIf="password.touched && password.invalid" class="help-block text-danger">Mot de passe requis (minimum 6 caractères)</small>
+                    </div>-->
+                    <div class="form-group">
+                        <i *ngIf="isSaving" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        <button type="submit" class="btn btn-primary snackbar-toggler" style="float: right" [disabled]="resetForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                                    Connecter
+                                </button>
+                    </div>
+
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="info-token" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel"> ALERT INFOS !!</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="infoToken">
+                    <div class="container">
+                        <div class="row justify-content-md-center">
+                            <div class="text-danger font-weight-bold m-4">
+                            {{message}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger float-right" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> Fermer </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal creation -->
 <div class="modal fade" id="creation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -108,45 +212,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-center">
+                <small class="text-center">
                     <em style="color:red">{{errorSignUp}}</em>
-                </p>
+                    <div class="text-danger" *ngFor="let error of validationErrors">
+                    {{error.value}}
+                    </div>
+                </small>
 
                 <form name="signUpForm" role="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                         <label for="username">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" name="username" [(ngModel)]="model.name" #username="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                        <input type="text" class="form-control" name="username" [(ngModel)]="model.name" #username="ngModel" required />
+                        <small *ngIf="username.touched && username.invalid" class="help-block text-danger">Nom d'utilisateur required</small>
                     </div>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !mail.valid }">
                         <label for="mail">Adresse Mail</label>
-                        <input type="email" class="form-control" name="mail" [(ngModel)]="model.email" #mail="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !mail.valid" class="help-block">email is required</div>
+                        <input type="email" class="form-control" name="mail" [(ngModel)]="model.email" #mail="ngModel" required />
+                        <small *ngIf="mail.touched && mail.invalid" class="help-block text-danger">email requis</small>
                     </div>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phone.valid }">
                         <label for="phone">Numéro Téléphone</label>
-                        <input type="phone" class="form-control" name="phone" [(ngModel)]="model.phone" #phone="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !phone.valid" class="help-block">phone is required</div>
+                        <input type="phone" class="form-control" name="phone" [(ngModel)]="model.phone" #phone="ngModel" required />
+                        <small *ngIf="phone.touched && phone.invalid" class="help-block text-danger">phone requis</small>
                     </div>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                         <label for="password">Mot de passe</label>
-                        <input type="password" class="form-control" name="password" [(ngModel)]="model.password"
-                            #password="ngModel" required />
-                        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                        <input type="password" minlength="6" class="form-control" validateEqual="password_confirmation" reverse="true" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                        <small *ngIf="password.touched && password.invalid" class="help-block text-danger">Password requis</small>
                     </div>
 
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password_confirmation.valid }">
                         <label for="password_confirmation">Confirmez Mot de passe</label>
-                        <input type="password" class="form-control" name="password_confirmation" [(ngModel)]="model.password_confirmation"
-                            #password_confirmation="ngModel" required />
-                        <div *ngIf="f.submitted && !password_confirmation.valid" class="help-block">Password is required</div>
+                        <input type="password" minlength="6" class="form-control" name="password_confirmation" validateEqual="password" [(ngModel)]="model.password_confirmation" #password_confirmation="ngModel" required />
+                        <small *ngIf="password_confirmation.touched && password_confirmation.invalid" class="help-block text-danger">Les mots de passes ne correspondent pas</small>
                     </div>
-                    
+
                     <div class="form-group">
-                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                        <i *ngIf="isSaving" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                         <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
                             Valider
                         </button>

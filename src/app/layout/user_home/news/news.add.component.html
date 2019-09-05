@@ -1,18 +1,39 @@
-<div class="container">
-    <form name="addForm" role="form" (ngSubmit)="f.form.valid && addNews()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-            <label for="name">Titre </label>
-            <input type="text" class="form-control" name="name" [(ngModel)]="model.title" #name="ngModel"
-                required />
-            <div *ngIf="f.submitted && !name.valid" class="help-block">Title is required</div>
-        </div>
-        <ckeditor name="editor" [(ngModel)]="model.content" [editor]="Editor" [config]="config" ></ckeditor>
+<div class=" main">
+    <div class=" container-fluid ">
+        <div class="row">
+            <div class="col-md-9 offset-md-3 offset-lg-3 col-sm-12 col-xs-12 col-lg-9">
+                <form name="f" role="form" (ngSubmit)="f.form.valid && addNews()" #f="ngForm" novalidate>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                        <label for="name">Titre </label>
+                        <input type="text" class="form-control" name="name" [(ngModel)]="model.title" #name="ngModel" required />
+                        <div *ngIf="name.invalid" class="help-block">Titre est requis</div>
+                    </div>
 
-        <div class="form-group">
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
-                Valider
-            </button>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
+                        <label for="image" class="text-black">Image de couverture </label>
+                        <input type="file" class="form-control" name="image" (change)="fileUpload($event)" accept=".jpg,.png" required />
+                        <!-- <div *ngIf="f.submitted " class="help-block">Image is required</div> -->
+                    </div>
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !resume.valid }">
+                        <label for="resume">Resumé de l'article </label>
+                        <textarea type="text" minlength="40" maxlength="60" class="form-control" name="resume" [(ngModel)]="model.resume" #resume="ngModel" required></textarea>
+                        <div *ngIf="resume.invalid" class="help-block text-danger">le resumé est requis (50 caractères minimum et 100 caractères maximum)</div>
+                    </div>
+
+                    <ckeditor name="editor" [(ngModel)]="model.content" [editor]="Editor" [config]="config"></ckeditor>
+
+                    <div class="form-group">
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                        <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
+                                            Valider
+                                        </button>
+                        <br><br><br>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+
+    </div>
+
 </div>

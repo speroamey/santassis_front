@@ -25,6 +25,17 @@ export class NewsService {
       }));
   }
 
+  updateNew(data){
+    const options: BaseRequestOptions = new BaseRequestOptions();
+    options.headers.append('Content-Type', 'application/json')
+    options.headers.append('Authorization','Bearer ' + localStorage.authenticationtoken );
+
+    return this.http
+      .put(`${this.newsUrl}/${data.id}`, data, options).pipe(map((res) => {
+        return res.json();
+      }));
+  }
+
   getNew(id) {
     const options: BaseRequestOptions = createRequestOption();
     // options.headers.append('Content-Type','application/json')

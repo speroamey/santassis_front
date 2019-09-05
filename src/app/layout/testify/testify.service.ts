@@ -9,7 +9,7 @@ import { HOST, createRequestOption } from '../../request-util';
 @Injectable()
 export class TestifyService {
 
-  private TestifyUrl: string = HOST+'testifys';
+  private TestifyUrl: string = HOST+'all_testifies';
 
   constructor(private router: Router,private http: Http,principal: PrincipalService) {
     // this.carmesUrl = this.loginUrl + '/carte_puce/appCarte.php';

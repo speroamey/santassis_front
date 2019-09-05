@@ -1,7 +1,7 @@
 <!-- Header -->
 
-<div class="container">
-    <div class="main">
+<div class="offset-md-2 offset-lg-2">
+    <div class="main col-md-11 col-lg-11 col-xl-11 col-sm-12 col-xs-12">
         <span *ngIf="loading" class="row align-items-center">
             <div class="col">
                 <!-- Chargement en cours... -->
@@ -25,38 +25,70 @@
             <button data-toggle="modal" data-target="#addProduct" class="btn btn-float btn my-1 float-right" type="button"><i
                     class="fa fa-plus"></i>
             </button>
-            <button data-toggle="modal" data-target="#addProduct" class="btn btn-float btn-warning text-white my-1 float-right" type="button">
+            <!-- <button data-toggle="modal" data-target="#bascketDetails" class="btn btn-float btn-warning text-white my-1 float-right" type="button">
                 <i class="fa fa-cart-plus">
                     {{shoppingBasket.length}}
                 </i>
 
-            </button>
+            </button>-->
         </div>
         <div *ngIf="products.length > 0">
             <div class="row">
 
-                <div class="card-deck col-lg-3 col-md-3 col-sm-6 col-xs-6" *ngFor="let item of products | paginate: { itemsPerPage: pager_infos.per_page, currentPage: pager_infos.current_page, totalItems: pager_infos.total }">
+                <div class="card-deck table-responsive">
 
-                    <div class="card" style="cursor:pointer"  data-toggle="modal" data-target="#detailsProduct" (click)="getProduct(item)">
-                        <img class="card-img-top" [src]="item.image_url" width="230" height="220" alt="Card image cap">
+                    <!--<div class="card" *ngIf="!product?.show" style="cursor:pointer" data-toggle="modal" data-target="#detailsProduct" (click)="getProduct(product)">
+                        <img class="card-img-top" [src]="product.image_url" style="width:100%;height:60%" alt="Card image cap">
                         <div class="card-body">
-                            <h6 class=" font-weight-bold text-capitalize">{{item.name}}</h6>
-                            <h6 class="card-text row-1 text-truncate font-weight-normal"> {{item.description}} </h6>
-                           
+                            <h6 class=" font-weight-bold text-capitalize">{{product.name}}</h6>
+                            <h6 class="card-text row-1 text-truncate font-weight-normal"> {{product.description}} </h6>
+
                             <div class="card-text">
-                                <span class="badge badge-light font-italic font-weight-bold typography-headline" style="color: rgba(0,0,0,.87) !important;"> {{item.price}} fcfa</span>
-                                <span class="badge badge-warning text-black-secondary" >Commander!</span>
-                                <!-- <span class="badge badge-warning" (click)="byProduct()">Acheter</span> -->
+                                <span class="badge badge-light font-italic font-weight-bold typography-headline" style="color: rgba(0,0,0,.87) !important;"> {{product.price}} fcfa</span>
+                                <span class="badge badge-warning text-black-secondary">Commander!</span>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-black ">#</th>
+                                <th scope="col" class="text-black font-weight-bold">Libellé</th>
+                                <th scope="col" class="text-black font-weight-bold">Type</th>
+                                <th scope="col" class="text-black font-weight-bold">Dose</th>
+                                <th scope="col" class="text-black font-weight-bold">Prix</th>
+                                <th scope="col" class="text-black font-weight-bold">Quantité</th>
+                                <th scope="col" class="text-black font-weight-bold"> Action </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor="let product of products | paginate: { itemsPerPage: pager_infos?.per_page, currentPage: pager_infos?.current_page, totalItems: pager_infos?.total }">
+                                <th scope="row">{{product.id}}</th>
+                                <td>{{product.name}}</td>
+                                <td>{{product.type}}</td>
+                                <td>{{product.dose}}</td>
+                                <td>{{product.price}} Fcfa</td>
+                                <td>{{product.quantity}}</td>
+                                <td class="float-right">
+                                    <span class="cursor-pointer  bg-success shadow-sm text-white " *ngIf="product.authorized == 1" (click)="authorizeProduct(0,product)"> 
+                                        <i class="fa fa-key"> Activé</i>
+                                    </span>
+                                    <span class="cursor-pointer bg-danger text-white" *ngIf="product.authorized == 0" (click)="authorizeProduct(1,product)"> 
+                                            <i class="fa fa-key"></i> Désactivé
+                                    </span>
+                                    <span class=" bg-success text-white cursor-pointer shadow-sm" (click)="productOrdonnanceModal(product)"> <i class="fa fa-eye">Ordonnances</i> </span>
+                                    <span class="cursor-pointer  shadow-sm " (click)="removeModal(product)"> <i class="fa fa-trash" ></i> </span>
+                                    <span class="cursor-pointer shadow-sm" (click)="update(product)"> <i class="fa fa-edit"></i> </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <br><br>
-            <pagination-controls (pageChange)="pageChanged($event)" directionLinks="true" autoHide="true" responsive="true"
-                previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination"
-                screenReaderPageLabel="page" screenReaderCurrentLabel="Page Actuelle">
+            <pagination-controls (pageChange)="pageChanged($event)" directionLinks="true" autoHide="true" responsive="true" previousLabel="Précédent" nextLabel="Suivant" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="Page Actuelle">
             </pagination-controls>
         </div>
     </div>
@@ -88,12 +120,12 @@
 
 
 
-<!-- Modal -->
+<!-- addProductModal -->
 <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajoutez un Produit</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Editer un Produit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,48 +135,77 @@
                         <em style="color:red">{{errorSignUp}}</em>
                     </p> -->
 
-                <form name="addForm" role="form" (ngSubmit)="f.form.valid && addProduct()" #f="ngForm" novalidate>
+                <form name="addForm" role="form" (ngSubmit)="addProduct()" #addForm="ngForm" novalidate>
 
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-                        <label for="name">Nom du produit </label>
-                        <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
-                    </div>
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
-                        <label for="description">Description du Produit</label>
-                        <input type="text" class="form-control" name="description" [(ngModel)]="model.description"
-                            #description="ngModel" required />
-                        <div *ngIf="f.submitted && !description.valid" class="help-block">Description is required</div>
-                    </div>
-
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
-                        <label for="price">Prix du produit</label>
-                        <input type="number" class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel"
-                            required />
-                        <div *ngIf="f.submitted && !price.valid" class="help-block">price is required</div>
-                    </div>
-
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !price.valid }">
-                        <label for="quantity">Quantité du produit</label>
-                        <input type="number" class="form-control" name="quantity" [(ngModel)]="model.quantity"
-                            #quantity="ngModel" required />
-                        <div *ngIf="f.submitted && !quantity.valid" class="help-block">quantity is required</div>
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !name.valid }">
+                        <label for="name" class="text-black">Nom du produit </label>
+                        <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+                        <div *ngIf="addForm.submitted && !name.valid" class="help-block">Name is required</div>
                     </div>
 
 
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control" name="image" (change)="fileUpload($event)" accept=".jpg,.png"
-                            required />
-                        <!-- <div *ngIf="f.submitted " class="help-block">Image is required</div> -->
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !dose.valid }">
+                        <label for="dose" class="text-black">Dose du Produit</label>
+                        <input type="text" class="form-control" name="dose" [(ngModel)]="model.dose" #dose="ngModel" placeholder="2mg ou 2g etc..." />
+                        <div *ngIf="addForm.submitted && !dose.valid" class="help-block">dose is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !price.valid }">
+                        <label for="price" class="text-black">Prix du produit</label>
+                        <input type="number" class="form-control" name="price" [(ngModel)]="model.price" #price="ngModel" required />
+                        <div *ngIf="addForm.submitted && !price.valid" class="help-block">price is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !price.valid }">
+                        <label for="quantity" class="text-black">Quantité du produit</label>
+                        <input type="number" class="form-control" name="quantity" [(ngModel)]="model.quantity" #quantity="ngModel" required />
+                        <div *ngIf="addForm.submitted && !quantity.valid" class="help-block">quantity is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !type.valid }">
+                        <label for="type" class="text-black">Type du produit</label>
+                        <select class="browser-default custom-select" name="type" [(ngModel)]="model.type" #type="ngModel" required>
+                                <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+                            </select>
+                        <div *ngIf="addForm.submitted && !type.valid" class="help-block">type is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !description.valid }">
+                        <label for="description" class="text-black">Description du Produit</label>
+                        <input type="text" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" required />
+                        <div *ngIf="addForm.submitted && !description.valid" class="help-block">Description is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted && !date_peremption.valid }">
+                        <label for="date_peremption" class="text-black">Date de Péremption</label>
+                        <input type="date" class="form-control" name="date_peremption" [(ngModel)]="model.date_peremption" #date_peremption="ngModel" required />
+                        <div *ngIf="addForm.submitted && !date_peremption.valid" class="help-block">Description is required</div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted }">
+                        <label for="image" class="text-black">Image 
+                                <span class="text-danger"> *Il est recommandé de charger une image dont la date de péremption est visible </span>
+                            </label>
+                        <input type="file" class="form-control" name="image" (change)="fileUpload($event)" accept=".jpg,.png" required />
+                        <!-- <div *ngIf="addForm.submitted " class="help-block">Image is required</div> -->
+                    </div>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': addForm.submitted }">
+                        <label for="image" class="text-black">Image Ordonnance 
+                                <span class="text-danger"> *Veuillez masquer le nom du patient</span>
+                            </label>
+                        <input type="file" class="form-control" name="ordonnance" (change)="ordonnanceFileUpload($event)" accept=".jpg,.png" required />
+                        <!-- <div *ngIf="addForm.submitted " class="help-block">Image is required</div> -->
                     </div>
 
                     <div class="form-group">
-                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        <button type="submit" class="btn btn-primary" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
-                            Valider
-                        </button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                        />
+                        <i *ngIf="loading" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+
+                        <button type="submit" class="btn btn-success" style="float: right" [disabled]="addForm.form.invalid || isSaving">{{isSaving?'....':''}}
+                                Valider
+                            </button>
                     </div>
                 </form>
             </div>
@@ -157,7 +218,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">{{product.name}}</h6>
+                <h6 class="modal-title" id="exampleModalLabel">{{productSelected.name}}</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -167,62 +228,192 @@
                         <em style="color:red">{{errorSignUp}}</em>
                     </p> -->
 
-                <form name="detailsForm" role="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                <form name="detailsf" role="form" (ngSubmit)="detailsf.form.valid" #detailsf="ngForm" novalidate>
 
                     <div class="container">
-                            <div class="row justify-content-md-center">
-                                    <div class="col col-lg-2">
-                                     
-                                    </div>
-                                    <div class="col-md-auto">
-                                            <img class="card-img-top" [src]="product.image_url" width="230" height="220" alt="Card image cap">
-                                    </div>
-                                    <div class="col col-lg-2">
-                                    
-                                    </div>
-                            </div>
-                            <br> <br>
-                            <div class="row justify-content-md-center">
+                        <div class="row justify-content-md-center">
+                            <div class="col col-lg-2">
 
-                                    <div class="col">
-                                            <label for="quantity" class="font-weight-bold text-black"> Quantité à commander</label>
-                                            <input type="number" name="product" class="form-control" [(ngModel)]="product.quantity_commanded" required>
-                                    </div>
-                                    <div class="font-weight-bold col-md-12">
-                                            <label for="price" class="font-weight-bold text-black"> Prix de vente</label>
-                                            <span class=" badge badge-danger font-weight-bold"> {{product.price}} Fcfa</span>
-                                    </div>
-                                    <div class="font-weight-bold col-md-12">
-                                            <label for="quantity" class="font-weight-bold text-black"> Quantité en stock</label>
-                                            <span class="badge badge-success font-weight-bold"> {{product.quantity}} </span>
-                                    </div>
-                                    
-
-                                    <div class="font-weight-bold col-md-12">
-                                            <label for="description" class="font-weight-bold text-black"> Description</label>
-                                    </div>
-                                    <div class=" card-text  col">
-                                        <label for="description_text" class="font-weight-normal text-black">  {{product.description}} </label>
-                                    </div>
                             </div>
-                     
-                        <!-- {{product | json}} -->
+                            <div class="col-md-auto">
+                                <img class="card-img-top" [src]="productSelected.image_url" width="230" height="220" alt="Card image cap">
+                            </div>
+                            <div class="col col-lg-2">
+
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div class="row justify-content-md-center">
+
+                            <div class="col-md-12 form-group" [ngClass]="{ 'has-error': detailsf.submitted && !quantity_commanded.valid }">
+                                <label for="quantity_commanded" class="font-weight-bold text-black"> Quantité à commander</label>
+                                <input type="number" name="quantity_commanded" class="form-control" [(ngModel)]="productSelected.quantity_commanded" #quantity_commanded="ngModel" min="1" [customMax]="productSelected.quantity" pattern="^$|^([1-9]|[1-9][0-9]|[1][0][0])?" required>
+                                <div *ngIf="quantity_commanded.invalid  && quantity_commanded.touched &&  quantity_commanded.errors?.required" class="help-block" style="color:red">Ce champ est requis</div>
+                                <div *ngIf="quantity_commanded.errors?.pattern" class="help-block" style="color:red">la valeur minimum est: 1</div>
+                                <div *ngIf="quantity_commanded.errors?.customMax" class="help-block" style="color:red">la valeur maximum est celle de la quantité en stock 1</div>
+
+                            </div>
+
+                            <div class="font-weight-bold col-md-12">
+                                <label for="price" class="font-weight-bold text-black"> Prix de vente</label>
+                                <span class=" badge badge-danger font-weight-bold"> {{productSelected.price}} Fcfa</span>
+                            </div>
+                            <div class="font-weight-bold col-md-12">
+                                <label for="quantity" class="font-weight-bold text-black"> Quantité en stock</label>
+                                <span class="badge badge-success font-weight-bold"> {{productSelected.quantity}} </span>
+                            </div>
+
+
+                            <div class="font-weight-bold col-md-12">
+                                <label for="description" class="font-weight-bold text-black"> Description</label>
+                            </div>
+                            <div class=" card-text  col">
+                                <label for="description_text" class="font-weight-normal text-black">  {{productSelected.description}} </label>
+                            </div>
+                        </div>
                     </div>
-                    
 
 
                     <div class="form-group">
-                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        <button type="submit" (click)="addToBasket(product)" class="btn btn-danger" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
+                        <button type="submit" (click)="addToBasket(productSelected)" class="btn btn-danger" style="float: right" [disabled]="detailsf.form.invalid || isSaving">{{isSaving?'....':''}}
                             Ajouter
                         </button>
-                       
-                        <button type="submit" (click)="byProduct()" class="ml-2 btn btn-warning text-white" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
+
+                        <!-- <button type="submit" (click)="byProduct()" class="ml-2 btn btn-warning text-white" style="float: right" [disabled]="detailsf.form.invalid || isSaving">{{isSaving?'....':''}}
+                            Acheter
+                        </button> -->
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="bascketDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Panier d'achat</h6>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- <p class="text-center">
+                        <em style="color:red">{{errorSignUp}}</em>
+                    </p> -->
+
+                <form name="f" role="form" (ngSubmit)="f.form.valid && byProduct()" #f="ngForm" novalidate>
+                    <div class="container">
+
+                        <table class="table table-bordered table-responsive-md table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-black font-weight-bold ">Nom</th>
+                                    <th class="text-black font-weight-bold">Quantité</th>
+                                    <th class="text-black font-weight-bold">Prix Unitaire</th>
+                                    <th class="text-black font-weight-bold">Prix Total</th>
+                                    <th class="text-black font-weight-bold">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="shoppingBasket.length>0">
+                                <tr *ngFor="let item of shoppingBasket ; let id = index">
+                                    <td scope="row">{{item?.name}}</td>
+                                    <td scope="row">
+                                        <span contenteditable="true" (keyup)="changeValue(id, 'quantity_commanded', $event,item)" (blur)="updateList(id, 'quantity_commanded', $event,item)">{{item.quantity_commanded}}</span>
+
+                                    </td>
+                                    <td scope="row">
+                                        <span>{{item.price}}</span>
+                                    </td>
+                                    <td scope="row">{{item?.tva_price}}</td>
+                                    <td scope="row" class="cursor:pointer">
+                                        <i class="fa fa-trash text-danger " (click)="revoveFromBascket(item)"> </i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-black font-weight-bold"> Total</td>
+                                    <td colspan="2" class="text-black font-weight-bold"> Total </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <i *ngIf="loading" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        <button type="submit" class="ml-2 btn btn-warning text-white" style="float: right" [disabled]="f.form.invalid || isSaving">{{isSaving?'....':''}}
                             Acheter
                         </button>
                     </div>
-                    
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade bd-example-modal-lg" id="removeProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Suppression</h6>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span class="text-black"> Voulez vous vraiment supprimer ce produit ?</span>
+                <br><br>
+                <div class="form-group">
+                    <button type="submit" class="ml-2 btn btn-danger text-white" style="float: right" (click)="remove()">
+                           Confirmez
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="productOrdonnance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Ordonnance</h6>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="isSaving">
+                            <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <br>
+                <form action="">
+
+                    <div style="width: auto; overflow:auto">
+                        <img [src]="model.image_ordonnance_url" alt="">
+                    </div>
+                </form>
+                <br><br>
+                <div class="form-group">
+                    <!--<button type="submit" class="ml-2 btn btn-danger text-white" style="float: right" (click)="remove()">
+                               Confirmez
+                        </button>-->
+                </div>
             </div>
         </div>
     </div>

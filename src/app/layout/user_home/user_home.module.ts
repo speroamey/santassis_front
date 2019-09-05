@@ -9,18 +9,27 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NewsComponentModule} from './news/news.component.module'
 import {UserPrestationsModule} from './prestations/prestations.module'
 import {TestifyComponentModule} from './testify/testify.component.module'
+import {UserProfileModule} from './profile/profile.module'
+import { SidenavComponent } from '../../shared/sidenav/sidenav.component';
+import { UserUsersModule } from './users/users.module';
+import { UserCommandsModule } from './commands/commands.module';
 
 @NgModule({
     imports: [
+        CommonModule,
         UserProductsModule,
         UserHomeRoutingModule,
         NgxPaginationModule,
         NewsComponentModule,
         UserPrestationsModule,
-        TestifyComponentModule
+        TestifyComponentModule,
+        UserProfileModule,
+        UserUsersModule,
+        UserCommandsModule
     ],
     declarations: [
-        UserHomeComponent
+        UserHomeComponent,
+        SidenavComponent
     ]
 })
 export class UserHomeModule { }

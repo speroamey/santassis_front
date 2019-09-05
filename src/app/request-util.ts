@@ -1,7 +1,8 @@
 import { URLSearchParams, BaseRequestOptions } from '@angular/http';
-export let HOST: string =  'http://127.0.0.1:8000/api/';
-export let IMAGE_HOST: string =  'http://127.0.0.1:8000/storage/prodcts/';
-// 'http://e-setem.bj';
+export let HOST: string =  'https://santassis-afrique.com/api/';
+export let IMAGE_HOST: string =  'https://santassis-afrique.com/storage/prodcts/';
+//'http://127.0.0.1:8000/api/'
+// 'http://127.0.0.1:8000/storage/prodcts/';
 
 export const createRequestOption = (req?: any,accept:boolean=false): BaseRequestOptions => {
   const options: BaseRequestOptions = new BaseRequestOptions();
@@ -28,7 +29,7 @@ export const createRequestOption = (req?: any,accept:boolean=false): BaseRequest
     options.headers.append('Access-Control-Allow-Origin',  '*');
     //  options.headers.append('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
     //  options.headers.append('Content-Type', 'application/json');
-  if (token) {
+  if (token) {    
       // token = token.replace(/^["']/, '');
        token = token.replace(/["']$/, '');
        options.headers.append('Authorization', 'Bearer ' + token);

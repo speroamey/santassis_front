@@ -1,0 +1,95 @@
+
+
+
+
+
+
+<!-- Contact -->
+<section id="contact">
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p></p>
+                <h2 class="section-heading text-uppercase">Nous Contacter</h2>
+                <h3 class="section-subheading text-muted">Nous restons toujours à votre écoute.</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="contactForm" (ngSubmit)="sendMessage()" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-control text-black" name="fullname" [(ngModel)]="contact.fullname" id="fullname" type="text" placeholder="Votre nom et prénoms *" required data-validation-required-message="Entrez votre nom & Prénoms.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control text-black" name="emailC" [(ngModel)]="contact.email" id="emailC" type="email" placeholder="Votre adresse mail *" required data-validation-required-message="Entrez votre adresse email.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="telephoneC" [(ngModel)]="contact.phone" id="phoneC" type="tel" placeholder="Téléphone *" required data-validation-required-message="Entrez votre numero de Téléphone.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <textarea class="form-control" name="messageC" [(ngModel)]="contact.content" id="messageC" placeholder="Votre Message *" required data-validation-required-message="Entrez votre message."></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button id="sendMessageButton" class="btn btn-light text-uppercase active" type="submit">Envoyez </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Tous droits réservés &copy;  SANTASSIS AFRIQUE  2019</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item">
+                        <!--<a href="#">Règles De Sécurités</a>-->
+                    </li>
+                    <li class="list-inline-item">
+                        <!--<a href="#">Conditions d'utilisation</a>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,49 @@
+<div class=" container-fluid ">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="main">
+                <span *ngIf="loading" class="row align-items-center">
+                            <div class="col">
+                                <!-- Chargement en cours... -->
+                                <div class="progress-circular progress-circular-primary">
+                                    <div class="progress-circular-wrapper">
+                                        <div class="progress-circular-inner">
+                                            <div class="progress-circular-center">
+                                                <div class="progress-circular-spinner"></div>
+                                            </div>
+                                            <div class="progress-circular-gap"></div>
+                                            <div class="progress-circular-center">
+                                                <div class="progress-circular-spinner"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+
+
+                <div *ngIf="prestations.length > 0">
+                    <div class="table table-striped table-hover table-responsive">
+                        <table class="table">
+
+                            <thead>
+                                <th>#</th>
+                                <th>Désignation </th>
+                                <th> Description</th>
+                                <th> Coût </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of prestations; let i =index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.price}}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
